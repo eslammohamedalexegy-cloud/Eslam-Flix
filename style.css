@@ -4,7 +4,6 @@ body{
   background: #000000; /* خلفية أسود تام */
   color: #eaf9ff;      /* لون نص واضح */
   overflow:hidden;
-  /*height:100vh;*/
 }
 
 /* العنصر اللي بتحط فيه Vanta (الخلفية) نخليه تحت ونعمل overlay غامق */
@@ -139,3 +138,4 @@ body{
   font-size: 1rem;
 
 }
+
