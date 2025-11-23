@@ -1,0 +1,140 @@
+/* ---------- بداية: استبدل أو أضف هذه القواعد في style.css ---------- */
+
+body{
+  background: #000000; /* خلفية أسود تام */
+  color: #eaf9ff;      /* لون نص واضح */
+  overflow:hidden;
+  height:100vh;
+}
+
+/* العنصر اللي بتحط فيه Vanta (الخلفية) نخليه تحت ونعمل overlay غامق */
+#bg{
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  z-index:-2; /* أضمن إنه تحت كل العناصر */
+}
+
+/* طبقة تغميق فوق الـ Vanta لتخلي الألوان داكنة أكثر/Night overlay */
+#bg::after{
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.65); /* غمّاق - زوّد القيمة لو عايز أغمق */
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* لو Vanta يستخدم canvas داخليًا، نقدر نخفف سطوعه مباشرة */
+#bg canvas {
+  opacity: 0.45; /* قلل أو زوّد حسب اللي يريحك (0.2 - 0.6) */
+  filter: saturate(0.95) brightness(0.85);
+}
+
+/* نخلي الحاوية الرئيسية فوق كل حاجة */
+.container{
+  position: relative;
+  z-index: 3; /* مهم جداً عشان تبقى واضحة فوق الخلفية */
+  height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  animation:zoomGlow 1.3s ease;
+  text-align:center;
+}
+
+/* نص الاسم والبايو - ألوان متباينة وقوية */
+.profile h2{
+  font-size:2rem;
+  color:#e8fbff; /* فاتح وواضح */
+  margin-bottom:5px;
+  text-shadow: 0 0 10px rgba(0,229,255,0.16), 0 0 24px rgba(255,63,209,0.08);
+}
+.profile p{
+  font-size:1.1rem;
+  color:#dceffd; /* فاتح وخفيف */
+  text-shadow: 0 0 6px rgba(0,230,255,0.06);
+}
+
+/* أيقونات وروابط - نخليها أكثر توهُّجًا */
+.links a{
+  font-size:1.9rem;
+  color:#00e5ff; /* لون نيون واضح */
+  text-decoration:none;
+  transition: 0.25;
+  filter: drop-shadow(0 6px 18px rgba(0,229,255,0.12));
+  transition: transform 0.3s;
+  margin: 3px;
+}
+.links a:hover{
+  transform:scale(1.25);
+  color:#fff;
+  text-shadow: 0 0 30px rgba(0,229,255,0.95);
+  transform: scale(1.2px);
+}
+
+/* كلمة الفولو تكون واضحة */
+.follow h3{
+  font-size:1.6rem;
+  color:#00e5ff;
+  animation:glow 2s infinite alternate;
+  text-shadow: 0 0 12px rgba(0,229,255,0.9), 0 0 28px rgba(255,63,209,0.28);
+}
+
+/* ===== responsive بسيط لو احتجت ===== */
+@media (max-width:480px){
+  .profile h2{ font-size:1.6rem; }
+  .links a{ font-size:1.6rem; }
+  #bg::after{ background: rgba(199, 199, 199, 0.7); }
+}
+
+/* ---------- نهاية التعديلات ---------- */
+/* ===== ضبط البروفايل - صورة دائرية بحجم مضبوط ===== */
+.profile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  max-width: 360px;
+  margin: 0 auto;
+  padding: 0 12px;
+  text-align: center;
+  z-index: 4; /* فوق الخلفية */
+}
+
+/* صورة البروفايل - مقيدة بأقصى عرض ونسبة ثابتة */
+.profile img {
+  width: 140px;            /* الحجم الافتراضي على شاشات كبيرة */
+  height: 140px;           /* نفس الارتفاع علشان تفضل دائرية */
+  max-width: 28vw;         /* يتقلص على الشاشات الصغيرة */
+  max-height: 28vw;
+  min-width: 100px;        /* لا تصغر كتير */
+  min-height: 100px;
+  border-radius: 50%;
+  object-fit: cover;       /* يقص الصورة بدون تشويه */
+  border: 3px solid rgba(0, 229, 255, 0.12);
+  box-shadow: 0 6px 28px rgba(0, 229, 255, 0.12), 0 8px 30px rgba(0,0,0,0.6);
+  transition: transform .35s ease, box-shadow .35s ease;
+  display: block;
+}
+
+/* لو تحب تأثير عند hover */
+.profile img:hover{
+  transform: scale(1.05);
+  box-shadow: 0 0 48px rgba(0,229,255,0.18), 0 18px 40px rgba(0,0,0,0.6);
+}
+
+/* نص الاسم والبايو لو محتاج تعديل بسيط للموضع */
+.profile h2 {
+  margin-top: 6px;
+  font-size: 1.9rem;
+  line-height: 1;
+}
+.profile p {
+  margin-top: 4px;
+  font-size: 1rem;
+}
